@@ -1,10 +1,9 @@
 /*
   Fade
 
-  This example shows how to fade an LED on pin 9
-  using the analogWrite() function.
+  This example shows the wrong method to read commands from
+  serial port. The Serial.read() will block the execution.
 
-  This example code is in the public domain.
 */
 
 int led = 9;           // the pin that the LED is attached to
@@ -22,11 +21,11 @@ void setup() {
 void loop() {
 
   while (Serial.available()) {
-
+    //if you only send a '9'or '5' to the arduino, the code will not work as your expect.
     if (Serial.read()  == '0') {
       brightness = 0;
     }
-    if (Serial.read()  == '5') {
+    if (Serial.read()  == '5') { //if you only send one char to the arduino, this line will block.
       brightness = 125;
     }
     if (Serial.read() == '9') {
@@ -38,4 +37,3 @@ void loop() {
   // wait for 30 milliseconds to see the dimming effect
   delay(30);
 }
-
